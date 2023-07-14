@@ -1,5 +1,5 @@
 import React from "react";
-import { InputText } from "../Form/inputText";
+import { InputText } from "../Input/inputText";
 
 const RegisterForm: React.FC = () => {
   return (
