@@ -1,21 +1,11 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import { GlobalStyle } from "./styles/GlobalStyle";
-import { ThemeProvider } from "styled-components";
-import { theme } from "./styles/Theme";
+import { CustomTheme } from "./styles/CustomTheme";
+import { AppRoutes } from "./routes/Routes";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Routes>
-          <Route path="/*" element={<LoginPage />} />
-        </Routes>
-      </ThemeProvider>
-    </>
+    <CustomTheme>
+      <AppRoutes />
+    </CustomTheme>
   );
 };
-
-export default App;

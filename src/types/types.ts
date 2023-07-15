@@ -12,3 +12,9 @@ export const userLoginPropsSchema = z.object({
 });
 
 export type UserLoginProps = z.infer<typeof userLoginPropsSchema>;
+
+export const userRegisterSchema = userLoginPropsSchema.extend({
+  name: z.string().nonempty("Campo obrigatório."),
+});
+
+export type UserRegisterProps = z.infer<typeof userRegisterSchema>;

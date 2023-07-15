@@ -1,16 +1,9 @@
-import { Route, Routes } from "react-router-dom";
-import LoginForm from "../components/Login/LoginForm/LoginForm";
-import RegisterForm from "../components/Login/RegisterForm";
+import { Outlet } from "react-router-dom";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-      </Routes>
+      <Outlet />
     </div>
   );
 };
-
-export default LoginPage;

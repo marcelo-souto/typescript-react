@@ -7,6 +7,7 @@ import { userLogin } from "../../../api/api";
 export const useLoginForm = () => {
 
   const mutation = useMutation({ mutationFn: userLogin });
+  const { isError, data, error, isSuccess, isLoading } = mutation;
 
   const {
     handleSubmit,
@@ -14,12 +15,22 @@ export const useLoginForm = () => {
     formState: { errors },
   } = useForm<UserLoginProps>({
     resolver: zodResolver(userLoginPropsSchema),
+    criteriaMode: "all",
     mode: "all",
   });
 
   const onSubmit = ({ email, password }: UserLoginProps) =>
     mutation.mutate({ email, password });
 
-  return { handleSubmit, register, errors, onSubmit };
-  
+  return {
+    handleSubmit,
+    register,
+    errors,
+    onSubmit,
+    isLoading,
+    isError,
+    data,
+    error,
+    isSuccess,
+  };
 };

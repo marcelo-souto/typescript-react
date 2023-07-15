@@ -1,24 +1,22 @@
 import React from "react";
-import { useLoginForm } from "./useLoginForm";
 import {
-  TextField,
+  IconButton,
+  InputAdornment,
   Stack,
   Typography,
-  InputAdornment,
-  IconButton,
-  Link,
+  TextField,
+  Link
 } from "@mui/material";
-
+import { useRegisterForm } from "./useRegisterForm";
 import { LoadingButton } from "@mui/lab";
 
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 
-export const LoginForm: React.FC = () => {
-  
+export const RegisterForm: React.FC = () => {
+
+  const { handleSubmit, register, errors, onSubmit, isLoading, data } = useRegisterForm();
   const [visibilityOn, setVisibilityOn] = React.useState(false);
-  const { handleSubmit, register, errors, onSubmit, isLoading } =
-    useLoginForm();
 
   return (
     <Stack
@@ -35,13 +33,23 @@ export const LoginForm: React.FC = () => {
         fontWeight={700}
         mb={1}
       >
-        Login
+        Cadastre-se
       </Typography>
+
       <Typography variant="body2" color="grey.600" mb={4}>
-        Olá, seja bem-vindo de volta.
+        Olá, seja bem-vindo.
       </Typography>
 
       <Stack component="form" onSubmit={handleSubmit(onSubmit)} spacing={2}>
+        <TextField
+          size="small"
+          id="name"
+          label="Nome"
+          variant="outlined"
+          error={!!errors.name?.message}
+          helperText={errors.name?.message}
+          {...register("name")}
+        />
         <TextField
           size="small"
           id="email"
@@ -88,8 +96,9 @@ export const LoginForm: React.FC = () => {
           Enviar
         </LoadingButton>
       </Stack>
+
       <Typography variant="body2" color="grey.600" textAlign="center" mt={3}>
-        Não tem conta? <Link href="/register">Cadastre-se</Link>
+        Já tem uma conta? <Link href="/login">Faça login</Link>
       </Typography>
     </Stack>
   );
