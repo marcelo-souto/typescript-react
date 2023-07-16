@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import { LoginPage } from "../pages/LoginPage";
 import { LoginForm } from "../components/Login/LoginForm/LoginForm";
 import { RegisterForm } from "../components/Login/RegisterForm/RegisterForm";
+import { ProtectedRoute } from "./ProtectedRoute";
+import { DashboardPage } from "../pages/DashboardPage";
 
 export const AppRoutes = () => {
   return (
@@ -10,6 +12,14 @@ export const AppRoutes = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
       </Route>
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };
