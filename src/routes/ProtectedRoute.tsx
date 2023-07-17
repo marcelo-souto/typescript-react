@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { Navigate } from "react-router-dom";
 
@@ -6,8 +7,12 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  
-  const loggedIn = false;
 
-  return loggedIn ? children : <Navigate to="/login" />;
+  const queryClient = useQueryClient()
+
+  const user = queryClient.getQueryData(["user"])
+  console.log(user)
+
+
+  return user ? children : <Navigate to="/login" />;
 };

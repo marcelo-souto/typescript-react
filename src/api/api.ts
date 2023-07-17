@@ -13,4 +13,20 @@ export const userLogin = async (credentials: UserLoginProps) => {
 export const userRegister = async (data: UserRegisterProps) => {
   const response = await api.post<string>("/user/create", data);
   return response.data;
+};
+
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
 }
+
+export const getUser = async (token: string | null) => {
+  if (!token) return null;
+
+  const response = await api.get<IUser>("/user/me", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return response.data;
+};

@@ -91,6 +91,7 @@ export const LoginForm: React.FC = () => {
       <Typography variant="body2" color="grey.600" textAlign="center" mt={3}>
         Não tem conta? <Link href="/register">Cadastre-se</Link>
       </Typography>
+      <Link href="/dashboard">Ir para dashvoard</Link>
     </Stack>
   );
 };

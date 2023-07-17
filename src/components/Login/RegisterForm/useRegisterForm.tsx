@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { UserRegisterProps, userRegisterSchema } from "../../../types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { userRegister } from "../../../api/api";
 
 export const useRegisterForm = () => {
