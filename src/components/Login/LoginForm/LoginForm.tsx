@@ -13,12 +13,16 @@ import { LoadingButton } from "@mui/lab";
 
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
+import { useUser } from "../../../queries/useUser";
+import { Navigate } from "react-router-dom";
 
 export const LoginForm: React.FC = () => {
-  
+
   const [visibilityOn, setVisibilityOn] = React.useState(false);
-  const { handleSubmit, register, errors, onSubmit, isLoading } =
-    useLoginForm();
+  const { handleSubmit, register, errors, onSubmit, isLoading } = useLoginForm();
+  const { user } = useUser();
+
+  if (user) return <Navigate to="/dashboard" />;
 
   return (
     <Stack
@@ -91,7 +95,6 @@ export const LoginForm: React.FC = () => {
       <Typography variant="body2" color="grey.600" textAlign="center" mt={3}>
         Não tem conta? <Link href="/register">Cadastre-se</Link>
       </Typography>
-      <Link href="/dashboard">Ir para dashvoard</Link>
     </Stack>
   );
 };

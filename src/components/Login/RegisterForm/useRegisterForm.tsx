@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form";
 import { UserRegisterProps, userRegisterSchema } from "../../../types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { userRegister } from "../../../api/api";
+import { useUserRegister } from "../../../queries/useUserRegister";
 
 export const useRegisterForm = () => {
   
-  const mutation = useMutation({ mutationFn: userRegister });
-  const { isError, data, error, isSuccess, isLoading } = mutation;
+  const { userRegisterMutation, isError, data, error, isSuccess, isLoading } =
+    useUserRegister();
 
   const {
     handleSubmit,
@@ -20,7 +19,7 @@ export const useRegisterForm = () => {
   });
 
   const onSubmit = ({ email, name, password }: UserRegisterProps) =>
-    mutation.mutate({ email, name, password });
+    userRegisterMutation({ email, name, password });
 
   return {
     handleSubmit,

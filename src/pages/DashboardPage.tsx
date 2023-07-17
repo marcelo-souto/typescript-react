@@ -1,15 +1,26 @@
 import { Stack, Typography } from "@mui/material";
-import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "../queries/useUser";
+import { UserQuizzes } from "../components/Dashboard/UserQuizzes";
 
 export const DashboardPage = () => {
-
-  const queryClient = useQueryClient()
-  const user = queryClient.getQueryData(["user"])
+  
+  const { user } = useUser();
 
   return (
-    <Stack>
-      <Typography variant="h1">Dashboard</Typography>
-      <Typography variant="body1">{user?.name}</Typography>
+    <Stack maxWidth={960} mx="auto" mt={8}>
+      {/* <Typography
+        variant="h3"
+        component="h1"
+        fontWeight={700}
+        color="grey.900"
+        mb={3}
+      >
+        Dashboard
+      </Typography>
+      <Typography variant="h6" component="p" mb={4}>
+        Boa tarde, {user?.name}
+      </Typography> */}
+      <UserQuizzes />
     </Stack>
   );
 };

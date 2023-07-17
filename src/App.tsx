@@ -1,11 +1,11 @@
 import React from "react";
 import { CustomTheme } from "./styles/CustomTheme";
 import { AppRoutes } from "./routes/Routes";
-import { useGetUser } from "./queries/useGetUser";
+import { useUser } from "./queries/useUser";
 
 export const App: React.FC = () => {
-
-  useGetUser()
+  
+  useUser();
 
   return (
     <CustomTheme>

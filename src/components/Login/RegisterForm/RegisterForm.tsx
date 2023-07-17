@@ -5,18 +5,26 @@ import {
   Stack,
   Typography,
   TextField,
-  Link
+  Link,
 } from "@mui/material";
 import { useRegisterForm } from "./useRegisterForm";
 import { LoadingButton } from "@mui/lab";
 
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
+import { useUser } from "../../../queries/useUser";
+import { Navigate } from "react-router-dom";
 
 export const RegisterForm: React.FC = () => {
 
-  const { handleSubmit, register, errors, onSubmit, isLoading, data } = useRegisterForm();
   const [visibilityOn, setVisibilityOn] = React.useState(false);
+
+  const { handleSubmit, register, errors, onSubmit, isLoading, isSuccess } = useRegisterForm();
+  const { user } = useUser();
+
+  if (user) return <Navigate to="/dashboard" />;
+
+  if(isSuccess) return <Navigate to="/login" />;
 
   return (
     <Stack

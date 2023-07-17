@@ -7,6 +7,7 @@ export const api = axios.create({
 
 export const userLogin = async (credentials: UserLoginProps) => {
   const response = await api.post<string>("/user/auth", credentials);
+  api.defaults.headers.Authorization = `Bearer ${response.data}`;
   return response.data;
 };
 
@@ -15,7 +16,7 @@ export const userRegister = async (data: UserRegisterProps) => {
   return response.data;
 };
 
-interface IUser {
+export interface IUser {
   id: string;
   name: string;
   email: string;
@@ -27,6 +28,16 @@ export const getUser = async (token: string | null) => {
   const response = await api.get<IUser>("/user/me", {
     headers: { Authorization: `Bearer ${token}` },
   });
+  api.defaults.headers.Authorization = `Bearer ${token}`;
+  return response.data;
+};
 
+export interface IQuiz {
+  id: string;
+  name: string;
+}
+
+export const getUserQuizzes = async () => {
+  const response = await api.get<IQuiz[]>("/quiz");
   return response.data;
 };
