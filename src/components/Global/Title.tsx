@@ -2,12 +2,12 @@ import { Stack, SvgIconTypeMap, Typography } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import React from "react";
 
-interface DashboardTitleProps {
+interface TitleProps {
   text: string;
   icon: OverridableComponent<SvgIconTypeMap>;
 }
 
-export const DashboardTitle: React.FC<DashboardTitleProps> = ({
+export const Title: React.FC<TitleProps> = ({
   text,
   icon: Icon,
 }) => {

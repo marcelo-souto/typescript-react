@@ -41,3 +41,17 @@ export const getUserQuizzes = async () => {
   const response = await api.get<IQuiz[]>("/quiz");
   return response.data;
 };
+
+export interface IQuestion {
+  id: string;
+  text: string;
+  options: string[]
+}
+export interface IQuizWithQuestions extends IQuiz {
+  questions: IQuestion[]
+}
+
+export const getQuiz = async (quizId: string) => {
+  const response = await api.get<IQuizWithQuestions>(`/quiz/${quizId}`)
+  return response.data
+}

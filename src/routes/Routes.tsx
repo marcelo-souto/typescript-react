@@ -4,6 +4,7 @@ import { LoginForm } from "../components/Login/LoginForm/LoginForm";
 import { RegisterForm } from "../components/Login/RegisterForm/RegisterForm";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { DashboardPage } from "../pages/DashboardPage";
+import { QuizPage } from "../pages/QuizPage";
 
 export const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/quiz/:quizId" element={<QuizPage />} />
     </Routes>
   );
 };

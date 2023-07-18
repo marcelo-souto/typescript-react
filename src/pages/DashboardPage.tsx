@@ -7,7 +7,7 @@ export const DashboardPage = () => {
   const { user } = useUser();
 
   return (
-    <Stack maxWidth={960} mx="auto" mt={8}>
+    <Stack maxWidth={960} mt={8}>
       {/* <Typography
         variant="h3"
         component="h1"

@@ -21,5 +21,24 @@ export const theme = createTheme({
         component: Link,
       } as LinkProps,
     },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: Link,
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          borderRadius: 8,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
   },
 });
