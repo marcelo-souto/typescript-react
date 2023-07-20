@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { blue, grey } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 import { Link } from "../components/Helpers/Link";
 import { LinkProps } from "@mui/material";
 
@@ -10,9 +10,6 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: blue["A400"],
-    },
-    background: {
-      default: grey["50"],
     },
   },
   components: {

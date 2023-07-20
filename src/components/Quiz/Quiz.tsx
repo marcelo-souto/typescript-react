@@ -2,8 +2,9 @@ import React from "react";
 import { Button, Stack } from "@mui/material";
 import { Question } from "./Question";
 import { IQuizWithQuestions } from "../../api/api";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { useSteps } from "../../hooks/useSteps";
+import { QuestionSwitcher } from "./QuestionSwitcher";
 
 interface QuizProps {
   quiz: IQuizWithQuestions;
@@ -26,12 +27,12 @@ export const Quiz: React.FC<QuizProps> = ({ quiz }) => {
 
   return (
     <Stack>
-      {questions.map(
-        (question, index) =>
-          currentStep === index && (
-            <Question control={control} key={question.id} question={question} />
-          )
-      )}
+
+      <QuestionSwitcher currentQuestion={currentStep}>
+        {questions.map((question) => (
+          <Question key={question.id} question={question} control={control} />
+        ))}
+      </QuestionSwitcher>
 
       <Stack direction="row" justifyContent="space-between">
         
@@ -39,11 +40,10 @@ export const Quiz: React.FC<QuizProps> = ({ quiz }) => {
           variant="contained"
           disabled={currentStep === 0}
           onClick={() => prevStep()}
-          sx={{":disabled": {opacity: 0}}}
+          sx={{ ":disabled": { opacity: 0 } }}
         >
           Voltar
         </Button>
-
         <Button
           variant="contained"
           disabled={!canGoNext}
@@ -51,6 +51,7 @@ export const Quiz: React.FC<QuizProps> = ({ quiz }) => {
         >
           Proxima
         </Button>
+        
       </Stack>
     </Stack>
   );

@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { IQuestion } from "../../api/api";
 import { Control, Controller } from "react-hook-form";
+import { Option } from "./Option";
 
 export interface QuestionProps {
   question: IQuestion;
@@ -16,7 +17,6 @@ export interface QuestionProps {
 }
 
 export const Question: React.FC<QuestionProps> = ({ question, control }) => {
-  
   return (
     <Stack>
 
@@ -32,17 +32,12 @@ export const Question: React.FC<QuestionProps> = ({ question, control }) => {
           render={({ field }) => (
             <RadioGroup {...field}>
               {question.options.map((option, index) => (
-                <FormControlLabel
-                  key={index}
-                  value={option}
-                  label={option}
-                  control={<Radio />}
-                />
+                <Option key={index} option={option} checked={field.value === option} />
               ))}
             </RadioGroup>
           )}
         />
-        
+
       </FormControl>
     </Stack>
   );
