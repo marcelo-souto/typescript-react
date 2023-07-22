@@ -28,3 +28,5 @@ export const useSteps = ({ totalSteps }: useFormStepProps) => {
 
   return { currentStep: step, nextStep, prevStep };
 };
+
+export type UseStepsReturn = ReturnType<typeof useSteps>

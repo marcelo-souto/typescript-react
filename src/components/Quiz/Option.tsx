@@ -4,21 +4,21 @@ import React from "react";
 
 interface OptionProps {
   option: string;
-  checked: boolean
+  checked: boolean;
 }
 
 export const Option: React.FC<OptionProps> = ({ option, checked }) => {
-
   return (
     <Stack
       sx={{
         flexDirection: "row",
-        padding: "18px 14px",
+        padding: "22px 14px",
         borderRadius: 4,
-        marginBottom: 2,
+        margin: 0,
+        marginBottom: 3,
         border: "2px solid",
         transition: "all .3s",
-        borderColor: checked ? "primary.main" : "#f0f0f0"
+        borderColor: checked ? "primary.main" : "#e3e3e3",
       }}
       component={FormControlLabel}
       control={<Radio />}

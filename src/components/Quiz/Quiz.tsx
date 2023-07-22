@@ -1,57 +1,47 @@
 import React from "react";
-import { Button, Stack } from "@mui/material";
-import { Question } from "./Question";
-import { IQuizWithQuestions } from "../../api/api";
-import { useForm, FormProvider } from "react-hook-form";
-import { useSteps } from "../../hooks/useSteps";
+import { Button, Stack, Typography } from "@mui/material";
 import { QuestionSwitcher } from "./QuestionSwitcher";
+import { useQuizContext } from "../../context/QuizContext";
+import { Loading } from "../Helpers/Loading";
 
-interface QuizProps {
-  quiz: IQuizWithQuestions;
-}
+export const Quiz: React.FC = () => {
+  
+  const {
+    quiz,
+    currentQuestion,
+    prevQuestion,
+    nextQuestion,
+    isCurrentQuestionAnswered,
+    isLoading,
+  } = useQuizContext();
 
-export const Quiz: React.FC<QuizProps> = ({ quiz }) => {
-  const { questions } = quiz;
-
-  const { nextStep, prevStep, currentStep } = useSteps({
-    totalSteps: questions.length - 1,
-  });
-
-  const { control, watch } = useForm<Record<string, string>>({
-    defaultValues: questions.reduce((prev, question) => {
-      return { ...prev, [question.id]: "" };
-    }, {}),
-  });
-
-  const canGoNext = !!watch(questions[currentStep].id).length;
-
+  if (isLoading) return <Loading />;
   return (
-    <Stack>
+    <Stack justifyContent="center">
+      <Typography color="grey.500" mb={1}>
+        {currentQuestion + 1}/{quiz?.questions.length}
+      </Typography>
 
-      <QuestionSwitcher currentQuestion={currentStep}>
-        {questions.map((question) => (
-          <Question key={question.id} question={question} control={control} />
-        ))}
-      </QuestionSwitcher>
+      <QuestionSwitcher />
 
-      <Stack direction="row" justifyContent="space-between">
-        
+      <Stack direction="row" justifyContent="space-between" mt={2}>
         <Button
           variant="contained"
-          disabled={currentStep === 0}
-          onClick={() => prevStep()}
+          disableElevation
+          disabled={currentQuestion === 0}
+          onClick={() => prevQuestion()}
           sx={{ ":disabled": { opacity: 0 } }}
         >
           Voltar
         </Button>
         <Button
           variant="contained"
-          disabled={!canGoNext}
-          onClick={() => nextStep(canGoNext)}
+          disableElevation
+          disabled={!isCurrentQuestionAnswered}
+          onClick={() => nextQuestion(isCurrentQuestionAnswered)}
         >
           Proxima
         </Button>
-        
       </Stack>
     </Stack>
   );

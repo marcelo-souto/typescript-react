@@ -17,10 +17,11 @@ export interface QuestionProps {
 }
 
 export const Question: React.FC<QuestionProps> = ({ question, control }) => {
-  return (
-    <Stack>
 
-      <Typography variant="h5" component="h1">
+  return (
+    <Stack spacing={4}>
+
+      <Typography variant="h5" component="p">
         {question.text}
       </Typography>
 

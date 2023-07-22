@@ -21,7 +21,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/quiz/:quizId" element={<QuizPage />} />
+      <Route path="/quiz/:id" element={<QuizPage />} />
     </Routes>
   );
 };

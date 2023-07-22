@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getQuiz } from "../api/api";
 
-export const useQuiz = (quizId: string) => {
+export const useGetQuiz = (quizId: string) => {
 
   const { data: quiz, ...rest } = useQuery({
     
@@ -15,3 +15,6 @@ export const useQuiz = (quizId: string) => {
 
   return { quiz, ...rest };
 };
+
+
+export type UseGetQuizReturn = ReturnType<typeof useGetQuiz>
