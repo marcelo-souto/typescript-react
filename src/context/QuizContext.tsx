@@ -1,29 +1,26 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useGetQuiz, UseGetQuizReturn } from "../queries/useGetQuiz";
-import { Control, useForm, UseFormWatch } from "react-hook-form";
+import { UseGetQuizReturn } from "../queries/useGetQuiz";
+import { Control, useForm} from "react-hook-form";
 import { useSteps } from "../hooks/useSteps";
 
 type QuizContextReturn = {
   control: Control;
-  watch: UseFormWatch<Record<string, string>>;
   isCurrentQuestionAnswered: boolean;
   currentQuestion: number;
+  totalQuestions: number
   nextQuestion: (condition?: boolean) => void;
   prevQuestion: (condition?: boolean) => void;
 } & UseGetQuizReturn;
 
 export const QuizContext = React.createContext({} as QuizContextReturn);
 
-interface QuizProviderProps {
+type QuizProviderProps = {
   children: React.ReactNode;
-}
+} & UseGetQuizReturn;
 
-export const QuizProvider: React.FC<QuizProviderProps> = ({ children }) => {
-  const { id } = useParams();
-  const { quiz, ...others } = useGetQuiz(id as string);
+export const QuizProvider: React.FC<QuizProviderProps> = ({ children, quiz, ...others }) => {
 
-  const totalSteps = quiz?.questions.length as number;
+  const totalQuestions = quiz?.questions.length as number
 
   const { control, watch } = useForm<Record<string, string>>({
     defaultValues: quiz?.questions.reduce((prev, question) => {
@@ -35,7 +32,7 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({ children }) => {
     nextStep: nextQuestion,
     prevStep: prevQuestion,
     currentStep: currentQuestion,
-  } = useSteps({ totalSteps: totalSteps - 1 });
+  } = useSteps({ totalSteps: totalQuestions - 1 });
 
   const isCurrentQuestionAnswered = !!watch(
     quiz?.questions[currentQuestion].id as string
@@ -46,7 +43,7 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({ children }) => {
       value={{
         quiz,
         control,
-        watch,
+        totalQuestions,
         nextQuestion,
         prevQuestion,
         currentQuestion,

@@ -5,21 +5,23 @@ import { useQuizContext } from "../../context/QuizContext";
 import { Loading } from "../Helpers/Loading";
 
 export const Quiz: React.FC = () => {
-  
+
   const {
-    quiz,
+    totalQuestions,
     currentQuestion,
     prevQuestion,
     nextQuestion,
     isCurrentQuestionAnswered,
-    isLoading,
+    isLoading
   } = useQuizContext();
 
   if (isLoading) return <Loading />;
+
   return (
     <Stack justifyContent="center">
+
       <Typography color="grey.500" mb={1}>
-        {currentQuestion + 1}/{quiz?.questions.length}
+        {currentQuestion + 1}/{totalQuestions}
       </Typography>
 
       <QuestionSwitcher />
@@ -34,6 +36,7 @@ export const Quiz: React.FC = () => {
         >
           Voltar
         </Button>
+
         <Button
           variant="contained"
           disableElevation
@@ -43,6 +46,7 @@ export const Quiz: React.FC = () => {
           Proxima
         </Button>
       </Stack>
+
     </Stack>
   );
 };
