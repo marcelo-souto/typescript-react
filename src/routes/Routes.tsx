@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { LoginPage } from "../pages/LoginPage";
-import { LoginForm } from "../components/Login/LoginForm/LoginForm";
-import { RegisterForm } from "../components/Login/RegisterForm/RegisterForm";
+import { LoginForm } from "../components/Login/LoginForm";
+import { RegisterForm } from "../components/Login/RegisterForm";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { DashboardPage } from "../pages/DashboardPage";
 import { QuizPage } from "../pages/QuizPage";

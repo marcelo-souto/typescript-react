@@ -1,38 +1,26 @@
 import React from "react";
 import { Button, Stack, Typography } from "@mui/material";
-import { Loading } from "../Helpers/Loading";
-import { useForm } from "react-hook-form";
-import { useGetQuiz } from "../../queries/useGetQuiz";
-import { useParams } from "react-router-dom";
-import { useSteps } from "../../hooks/useSteps";
-import { Question } from "./Question";
+import { Loading } from "../../Helpers/Loading";
+import { Question } from "../Question";
+import { useQuizQuestionsForm } from "./useQuizQuestionsForm";
 
-interface QuestionsProps {
+interface QuizQuestionsFormProps {
   showAll?: boolean;
 }
 
-export const Questions: React.FC<QuestionsProps> = ({ showAll }) => {
-  
-  const { id } = useParams();
-  const { quiz, isLoading } = useGetQuiz(id as string);
-
-  const { control, watch } = useForm<Record<string, string>>({
-    defaultValues: quiz?.questions.reduce((prev, question) => {
-      return { ...prev, [question.id]: "" };
-    }, {}),
-  });
-
-  const totalQuestions = quiz?.questions.length as number;
-
+export const QuizQuestionsForm: React.FC<QuizQuestionsFormProps> = ({
+  showAll,
+}) => {
   const {
-    nextStep: nextQuestion,
-    prevStep: prevQuestion,
-    currentStep: currentQuestion,
-  } = useSteps({ totalSteps: totalQuestions - 1 });
-
-  const isCurrentQuestionAnswered = !!watch(
-    quiz?.questions[currentQuestion].id as string
-  );
+    isLoading,
+    quiz,
+    prevQuestion,
+    nextQuestion,
+    currentQuestion,
+    totalQuestions,
+    control,
+    isCurrentQuestionAnswered,
+  } = useQuizQuestionsForm();
 
   if (isLoading) return <Loading />;
 

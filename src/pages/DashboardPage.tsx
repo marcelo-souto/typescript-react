@@ -3,7 +3,6 @@ import { useUser } from "../queries/useUser";
 import { UserQuizzes } from "../components/Dashboard/UserQuizzes";
 
 export const DashboardPage = () => {
-  
   const { user } = useUser();
 
   return (

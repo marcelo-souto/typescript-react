@@ -1,13 +1,8 @@
-import {
-  FormControl,
-  RadioGroup,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { FormControl, RadioGroup, Stack, Typography } from "@mui/material";
 import React from "react";
-import { IQuestion } from "../../api/api";
+import { IQuestion } from "../../../api/api";
 import { Control, Controller } from "react-hook-form";
-import { Option } from "./Option";
+import { Option } from "../Option";
 
 export interface QuestionProps {
   question: IQuestion;
@@ -15,10 +10,8 @@ export interface QuestionProps {
 }
 
 export const Question: React.FC<QuestionProps> = ({ question, control }) => {
-
   return (
     <Stack spacing={4}>
-
       <Typography variant="h5" component="p">
         {question.text}
       </Typography>
@@ -31,12 +24,15 @@ export const Question: React.FC<QuestionProps> = ({ question, control }) => {
           render={({ field }) => (
             <RadioGroup {...field}>
               {question.options.map((option, index) => (
-                <Option key={index} option={option} checked={field.value === option} />
+                <Option
+                  key={index}
+                  option={option}
+                  checked={field.value === option}
+                />
               ))}
             </RadioGroup>
           )}
         />
-
       </FormControl>
     </Stack>
   );

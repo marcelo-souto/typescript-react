@@ -1,7 +1,7 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import React from "react";
-import { IQuiz } from "../../api/api";
+import { IQuiz } from "../../../api/api";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 
 interface DashboardQuizListProps {

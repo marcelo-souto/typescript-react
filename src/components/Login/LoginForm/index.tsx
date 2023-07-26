@@ -1,13 +1,14 @@
 import React from "react";
+import { useLoginForm } from "./useLoginForm";
 import {
-  IconButton,
-  InputAdornment,
+  TextField,
   Stack,
   Typography,
-  TextField,
+  InputAdornment,
+  IconButton,
   Link,
 } from "@mui/material";
-import { useRegisterForm } from "./useRegisterForm";
+
 import { LoadingButton } from "@mui/lab";
 
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
@@ -15,16 +16,13 @@ import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import { useUser } from "../../../queries/useUser";
 import { Navigate } from "react-router-dom";
 
-export const RegisterForm: React.FC = () => {
-
+export const LoginForm: React.FC = () => {
   const [visibilityOn, setVisibilityOn] = React.useState(false);
-
-  const { handleSubmit, register, errors, onSubmit, isLoading, isSuccess } = useRegisterForm();
+  const { handleSubmit, register, errors, onSubmit, isLoading } =
+    useLoginForm();
   const { user } = useUser();
 
   if (user) return <Navigate to="/dashboard" />;
-
-  if(isSuccess) return <Navigate to="/login" />;
 
   return (
     <Stack
@@ -41,23 +39,13 @@ export const RegisterForm: React.FC = () => {
         fontWeight={700}
         mb={1}
       >
-        Cadastre-se
+        Login
       </Typography>
-
       <Typography variant="body2" color="grey.600" mb={4}>
-        Olá, seja bem-vindo.
+        Olá, seja bem-vindo de volta.
       </Typography>
 
       <Stack component="form" onSubmit={handleSubmit(onSubmit)} spacing={2}>
-        <TextField
-          size="small"
-          id="name"
-          label="Nome"
-          variant="outlined"
-          error={!!errors.name?.message}
-          helperText={errors.name?.message}
-          {...register("name")}
-        />
         <TextField
           size="small"
           id="email"
@@ -104,9 +92,8 @@ export const RegisterForm: React.FC = () => {
           Enviar
         </LoadingButton>
       </Stack>
-
       <Typography variant="body2" color="grey.600" textAlign="center" mt={3}>
-        Já tem uma conta? <Link href="/login">Faça login</Link>
+        Não tem conta? <Link href="/register">Cadastre-se</Link>
       </Typography>
     </Stack>
   );

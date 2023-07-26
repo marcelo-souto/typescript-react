@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserRegister } from "../../../queries/useUserRegister";
 
 export const useRegisterForm = () => {
-  
   const { userRegisterMutation, isError, data, error, isSuccess, isLoading } =
     useUserRegister();
 
