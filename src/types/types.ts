@@ -18,3 +18,7 @@ export const userRegisterSchema = userLoginPropsSchema.extend({
 });
 
 export type UserRegisterProps = z.infer<typeof userRegisterSchema>;
+
+export const userEmailSchema = userLoginPropsSchema.pick({ email: true });
+
+export type UserEmail = Pick<UserLoginProps, "email">;

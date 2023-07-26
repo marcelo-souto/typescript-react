@@ -1,59 +1,49 @@
 import React from "react";
-import { UseGetQuizReturn } from "../queries/useGetQuiz";
-import { Control, useForm} from "react-hook-form";
-import { useSteps } from "../hooks/useSteps";
 
-type QuizContextReturn = {
-  control: Control;
-  isCurrentQuestionAnswered: boolean;
-  currentQuestion: number;
-  totalQuestions: number
-  nextQuestion: (condition?: boolean) => void;
-  prevQuestion: (condition?: boolean) => void;
-} & UseGetQuizReturn;
+interface QuizState {
+  state: number;
+  email: null | string;
+  isAllQuestionsAnswered: boolean;
+  isAnswersConfirmed: boolean;
+}
 
-export const QuizContext = React.createContext({} as QuizContextReturn);
+interface IQuizStateContext {
+  quizState: QuizState;
+  updateQuizState: (data: Partial<QuizState>) => void;
+}
 
-type QuizProviderProps = {
+interface QuizProviderProps {
   children: React.ReactNode;
-} & UseGetQuizReturn;
+}
 
-export const QuizProvider: React.FC<QuizProviderProps> = ({ children, quiz, ...others }) => {
+const QuizStateContext = React.createContext({} as IQuizStateContext);
 
-  const totalQuestions = quiz?.questions.length as number
+export const QuizAppStateProvider: React.FC<QuizProviderProps> = ({ children }) => {
 
-  const { control, watch } = useForm<Record<string, string>>({
-    defaultValues: quiz?.questions.reduce((prev, question) => {
-      return { ...prev, [question.id]: "" };
-    }, {}),
+  const [quizState, setQuizState] = React.useState<QuizState>({
+    state: 1,
+    email: null,
+    isAllQuestionsAnswered: false,
+    isAnswersConfirmed: false,
   });
 
-  const {
-    nextStep: nextQuestion,
-    prevStep: prevQuestion,
-    currentStep: currentQuestion,
-  } = useSteps({ totalSteps: totalQuestions - 1 });
+  const updateQuizState = (data: Partial<QuizState>) => {
 
-  const isCurrentQuestionAnswered = !!watch(
-    quiz?.questions[currentQuestion].id as string
-  );
+    setQuizState((prevQuizState) => ({
+      ...prevQuizState,
+      state: prevQuizState.state += 1,
+      ...data
+    }));
+    
+  };
+
+  React.useEffect(() => console.log(quizState), [quizState])
 
   return (
-    <QuizContext.Provider
-      value={{
-        quiz,
-        control,
-        totalQuestions,
-        nextQuestion,
-        prevQuestion,
-        currentQuestion,
-        isCurrentQuestionAnswered,
-        ...others,
-      }}
-    >
+    <QuizStateContext.Provider value={{ quizState, updateQuizState }}>
       {children}
-    </QuizContext.Provider>
+    </QuizStateContext.Provider>
   );
 };
 
-export const useQuizContext = () => React.useContext(QuizContext);
+export const useQuizAppState = () => React.useContext(QuizStateContext);

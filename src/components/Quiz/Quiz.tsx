@@ -1,52 +1,10 @@
-import React from "react";
-import { Button, Stack, Typography } from "@mui/material";
-import { QuestionSwitcher } from "./QuestionSwitcher";
-import { useQuizContext } from "../../context/QuizContext";
-import { Loading } from "../Helpers/Loading";
+import { useQuizAppState } from "../../context/QuizContext";
+import { Questions } from "./Questions";
+import { QuizEmailForm } from "./QuizEmailForm";
 
-export const Quiz: React.FC = () => {
+export const Quiz = () => {
+  const { quizState } = useQuizAppState();
 
-  const {
-    totalQuestions,
-    currentQuestion,
-    prevQuestion,
-    nextQuestion,
-    isCurrentQuestionAnswered,
-    isLoading
-  } = useQuizContext();
-
-  if (isLoading) return <Loading />;
-
-  return (
-    <Stack justifyContent="center">
-
-      <Typography color="grey.500" mb={1}>
-        {currentQuestion + 1}/{totalQuestions}
-      </Typography>
-
-      <QuestionSwitcher />
-
-      <Stack direction="row" justifyContent="space-between" mt={2}>
-        <Button
-          variant="contained"
-          disableElevation
-          disabled={currentQuestion === 0}
-          onClick={() => prevQuestion()}
-          sx={{ ":disabled": { opacity: 0 } }}
-        >
-          Voltar
-        </Button>
-
-        <Button
-          variant="contained"
-          disableElevation
-          disabled={!isCurrentQuestionAnswered}
-          onClick={() => nextQuestion(isCurrentQuestionAnswered)}
-        >
-          Proxima
-        </Button>
-      </Stack>
-
-    </Stack>
-  );
+  if (quizState.state === 1) return <QuizEmailForm />;
+  if (quizState.state === 2) return <Questions />;
 };
