@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuizStore } from "../store/store";
 import { QuizEmailForm } from "../components/Quiz/QuizEmailForm";
-import { QuizQuestionsForm } from "../components/Quiz/QuizQuestionsForm/QuizQuestionsForm";
+import { QuizQuestionsForm } from "../components/Quiz/QuizQuestionsForm";
 
 export const QuizPage = () => {
   const params = useParams();
@@ -13,5 +13,5 @@ export const QuizPage = () => {
   }, [params]);
 
   if (quizStep === "email") return <QuizEmailForm />;
-  if (quizStep === "answer") return <QuizQuestionsForm />;
+  if (quizStep === "answer") return <QuizQuestionsForm confirm />;
 };

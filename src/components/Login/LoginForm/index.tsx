@@ -17,9 +17,9 @@ import { useUser } from "../../../queries/useUser";
 import { Navigate } from "react-router-dom";
 
 export const LoginForm: React.FC = () => {
+  
   const [visibilityOn, setVisibilityOn] = React.useState(false);
-  const { handleSubmit, register, errors, onSubmit, isLoading } =
-    useLoginForm();
+  const { handleSubmit, register, errors, onSubmit, isLoading } = useLoginForm();
   const { user } = useUser();
 
   if (user) return <Navigate to="/dashboard" />;

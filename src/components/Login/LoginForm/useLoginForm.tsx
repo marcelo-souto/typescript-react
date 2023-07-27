@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserLogin } from "../../../queries/useUserLogin";
 
 export const useLoginForm = () => {
-  const { mutate, isError, data, error, isSuccess, isLoading } = useUserLogin();
+  const { mutate, isError, error, isSuccess, isLoading } = useUserLogin();
 
   const {
     handleSubmit,
@@ -26,7 +26,6 @@ export const useLoginForm = () => {
     onSubmit,
     isLoading,
     isError,
-    data,
     error,
     isSuccess,
   };

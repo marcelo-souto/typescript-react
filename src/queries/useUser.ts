@@ -7,7 +7,7 @@ export const useUser = () => {
 
   const queryClient = useQueryClient();
 
-  const { isError, data: user,...others } = useQuery({
+  const { isError, data: user,...rest } = useQuery({
 
     queryKey: ["user", token],
     queryFn: () => getUser(token),
@@ -24,5 +24,5 @@ export const useUser = () => {
     queryClient.removeQueries({ queryKey: ["user", "token"] });
   }
 
-  return { user, ...others };
+  return { user, ...rest };
 };

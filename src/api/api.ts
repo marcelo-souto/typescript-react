@@ -3,6 +3,7 @@ import { UserLoginProps, UserRegisterProps } from "../types/types";
 
 export const api = axios.create({
   baseURL: "https://typescript-api-three.vercel.app",
+  // baseURL: "http://localhost:3000",
 });
 
 export const userLogin = async (credentials: UserLoginProps) => {
@@ -45,13 +46,24 @@ export const getUserQuizzes = async () => {
 export interface IQuestion {
   id: string;
   text: string;
-  options: string[]
+  options: string[];
 }
 export interface IQuizWithQuestions extends IQuiz {
-  questions: IQuestion[]
+  questions: IQuestion[];
 }
 
 export const getQuiz = async (quizId: string) => {
-  const response = await api.get<IQuizWithQuestions>(`/quiz/${quizId}`)
-  return response.data
+  const response = await api.get<IQuizWithQuestions>(`/quiz/${quizId}`);
+  return response.data;
+};
+
+export interface IQuizAnswers {
+  quiz_id: string;
+  email: string;
+  answers: { id: string; answer: string }[];
 }
+
+export const correctQuiz = async (answers: IQuizAnswers) => {
+  const response = await api.post<{ [key: string]: string }>("/quiz/correct", answers);
+  return response.data;
+};
