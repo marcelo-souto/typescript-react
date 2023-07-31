@@ -7,12 +7,12 @@ interface QuizFormState {
 }
 
 interface QuizStore {
-  quizStep: "initial" | "email" | "answer" | "checked";
+  quizStep: "initial" | "email" | "answer" | "checkAnswers";
   quizForm: QuizFormState;
   setQuizId: (quiz_id: string) => void;
   setQuizUserEmail: (email: string) => void;
   answerQuizQuestion: (id: string, answer: string) => void;
-  checkAnswers: () => void
+  checkAnswers: () => void;
 }
 
 export const useQuizStore: UseBoundStore<StoreApi<QuizStore>> = create(
@@ -55,6 +55,6 @@ export const useQuizStore: UseBoundStore<StoreApi<QuizStore>> = create(
           },
         };
       }),
-    checkAnswers: () => set((state) => ({ ...state, quizStep: "checked" })),
+    checkAnswers: () => set((state) => ({ ...state, quizStep: "checkAnswers" })),
   })
 );

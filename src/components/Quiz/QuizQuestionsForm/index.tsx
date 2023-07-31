@@ -1,18 +1,11 @@
 import React from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography, Alert, AlertTitle } from "@mui/material";
 import { Loading } from "../../Helpers/Loading";
-import { Question } from "../Question";
 import { useQuizQuestionsForm } from "./useQuizQuestionsForm";
-import { useQuizStore } from "../../../store/store";
+import { Questions } from "../Questions";
 
-interface QuizQuestionsFormProps {
-  confirm?: boolean;
-}
-
-export const QuizQuestionsForm: React.FC<QuizQuestionsFormProps> = ({
-  confirm,
-}) => {
-  const { checkAnswers } = useQuizStore();
+export const QuizQuestionsForm: React.FC = () => {
+  const [confirmMode, setConfirmMode] = React.useState(false);
 
   const {
     isLoading,
@@ -22,32 +15,50 @@ export const QuizQuestionsForm: React.FC<QuizQuestionsFormProps> = ({
     currentQuestion,
     totalQuestions,
     areAllQuestionsAnswered,
-    handleSubmit,
   } = useQuizQuestionsForm();
+
+  const handleClick = () => {
+    if (areAllQuestionsAnswered) setConfirmMode(true);
+  };
 
   if (isLoading) return <Loading />;
 
-  return (
-    <>
+  if (quiz)
+    return (
       <Stack justifyContent="center">
-        {!confirm && (
+        {confirmMode && (
+          <Stack
+            sx={{
+              maxWidth: 320,
+              borderRadius: 3,
+              alignItems: "center",
+              position: "fixed",
+              right: 24,
+              top: 24,
+              border: "2px solid",
+              borderColor: "grey.300",
+              padding: 4
+            }}
+          >
+            <Typography>
+              Releia cuidadosamente e confirme suas respostas antes de enviar
+            </Typography>
+          </Stack>
+        )}
+
+        {!confirmMode && (
           <Typography color="grey.500" mb={1}>
             {currentQuestion + 1}/{totalQuestions}
           </Typography>
         )}
 
-        {!confirm &&
-          quiz?.questions.map((question, index) => {
-            if (index === currentQuestion)
-              return <Question key={question.id} question={question} />;
-          })}
+        <Questions
+          questions={quiz.questions}
+          currentQuestion={currentQuestion}
+          seeAll={confirmMode}
+        />
 
-        {confirm &&
-          quiz?.questions.map((question) => {
-            return <Question key={question.id} question={question} />;
-          })}
-
-        {!confirm && (
+        {!confirmMode && (
           <Stack direction="row" justifyContent="space-between" mt={2}>
             <Button
               variant="contained"
@@ -74,7 +85,7 @@ export const QuizQuestionsForm: React.FC<QuizQuestionsFormProps> = ({
                 variant="contained"
                 disableElevation
                 disabled={!areAllQuestionsAnswered}
-                onClick={() => checkAnswers()}
+                onClick={handleClick}
               >
                 Finalizar
               </Button>
@@ -82,6 +93,7 @@ export const QuizQuestionsForm: React.FC<QuizQuestionsFormProps> = ({
           </Stack>
         )}
       </Stack>
-    </>
-  );
+    );
+
+  return null;
 };

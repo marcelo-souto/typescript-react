@@ -13,5 +13,6 @@ export const QuizPage = () => {
   }, [params]);
 
   if (quizStep === "email") return <QuizEmailForm />;
-  if (quizStep === "answer") return <QuizQuestionsForm confirm />;
+  if (quizStep === "answer") return <QuizQuestionsForm />;
+  if (quizStep === "checkAnswers") return <QuizQuestionsForm seeAll />;
 };
