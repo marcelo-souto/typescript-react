@@ -1,41 +1,36 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogProps,
-  DialogTitle,
-} from "@mui/material";
+import { Button, Typography, Stack, StackProps } from "@mui/material";
 import React from "react";
 
-interface QuizConfirmationProps {
-  open: boolean;
-  onClose: DialogProps["onClose"];
+interface QuizConfirmationProps extends StackProps {
+  handleSendQuizAnswers: () => void;
 }
 
 export const QuizConfirmation: React.FC<QuizConfirmationProps> = ({
-  open,
-  onClose,
+  handleSendQuizAnswers,
+  ...props
 }) => {
   return (
-    <Dialog
-      open={true}
-      onClose={onClose}
-      sx={{
-        ".MuiDialog-paper": {
-          padding: 3,
-          borderRadius: 3
-        },
-      }}
+    <Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between"
+      borderRadius={3}
+      border="2px solid"
+      borderColor="grey.300"
+      padding={4}
+      zIndex={1}
+      {...props}
     >
-      <DialogTitle>Você tem certeza que deseja enviar?</DialogTitle>
-      <DialogActions>
-        <Button variant="contained" disableElevation>
-          Enviar
-        </Button>
-        <Button variant="contained" disableElevation>
-          Checar Respostas
-        </Button>
-      </DialogActions>
-    </Dialog>
+      <Typography>
+        Releia cuidadosamente e confirme suas respostas antes de enviar
+      </Typography>
+      <Button
+        variant="contained"
+        disableElevation
+        onClick={handleSendQuizAnswers}
+      >
+        Enviar
+      </Button>
+    </Stack>
   );
 };

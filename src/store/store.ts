@@ -17,7 +17,7 @@ interface QuizStore {
 
 export const useQuizStore: UseBoundStore<StoreApi<QuizStore>> = create(
   (set) => ({
-    quizStep: "initial",
+    quizStep: "email",
     quizForm: {
       quiz_id: null,
       email: null,

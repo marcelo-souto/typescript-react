@@ -21,7 +21,7 @@ export const useQuizQuestionsForm = () => {
 
   const areAllQuestionsAnswered = quizForm.answers.length === totalQuestions;
 
-  const handleSubmit = () => correctQuizMutation(quizForm as IQuizAnswers);
+  const handleSendQuizAnswers = () => correctQuizMutation(quizForm as IQuizAnswers)
 
   return {
     quiz,
@@ -33,6 +33,6 @@ export const useQuizQuestionsForm = () => {
     currentQuestion,
     totalQuestions,
     areAllQuestionsAnswered,
-    handleSubmit,
+    handleSendQuizAnswers
   };
 };

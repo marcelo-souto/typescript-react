@@ -13,23 +13,22 @@ export const Questions: React.FC<QuestionsProps> = ({
   seeAll,
   currentQuestion,
 }) => {
-
-  if (seeAll)
-    return (
-      <>
-        {questions.map((question) => (
-          <Question key={question.id} question={question}/>
+  return (
+    <>
+    
+      {seeAll &&
+        questions.map((question) => (
+          <Question key={question.id} question={question} mb={8} />
         ))}
-      </>
-    );
 
-  if (!seeAll ?? currentQuestion)
-    return (
-      <>
-        {questions.map((question, index) => {
-          if (index === currentQuestion)
-            return <Question key={question.id} question={question} />;
-        })}
-      </>
-    );
+      {(!seeAll ?? currentQuestion) &&
+        questions.map(
+          (question, index) =>
+            currentQuestion === index && (
+              <Question key={question.id} question={question} />
+            )
+        )}
+
+    </>
+  );
 };
